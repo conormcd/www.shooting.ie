@@ -53,7 +53,12 @@ class CalendarModelTest extends TestCase {
 		$events = $calendar->events();
 		$calendar_names_seen = array();
 		foreach ($events as $day => $day_events) {
+			$this->assertTrue(strlen($day) > 0, "Invalid day key.");
 			foreach ($day_events as $key => $event) {
+				$this->assertTrue(
+					(boolean)preg_match('/^\w+$/', $key),
+					"Invalid key: $key"
+				);
 				$this->assertTrue(
 					array_key_exists('title', $event),
 					"Event with no title!"
