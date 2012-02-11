@@ -26,22 +26,73 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+require ROOT . '/lib/mustache/Mustache.php';
+
 /**
  * A base view class to be extended by all views.
  *
  * @author Conor McDermottroe <conor@mcdermottroe.com>
  */
-class View {
+class View extends Mustache {
 	/** The model with which to render this view. */
 	protected $_model;
+
+	/** The templates for this view. */
+	protected $_templates;
 
 	/**
 	 * Initialise the view with the model.
 	 *
-	 * @param object $model The model to render with this view.
+	 * @param string $action The action we're viewing for.
+	 * @param object $model  The model to render with this view.
 	 */
-	public function __construct($model) {
+	public function __construct($action, $model) {
+		$this->_templates = $this->_getTemplates($action);
+		if (!array_key_exists('main', $this->_templates)) {
+			$this->_templates['main'] = '{{> head}}{{> tail}}';
+		}
+		parent::__construct(
+			$this->_templates['main'],
+			null,
+			$this->_templates
+		);
 		$this->_model = $model;
+	}
+
+	/**
+	 * Get the templates for the current page request.
+	 *
+	 * @param string $action       The action we're viewing for.
+	 * @param string $template_dir ONLY FOR RECURSIVE CALLS. DO NOT USE.
+	 *
+	 * @return array The templates for the current page request.
+	 */
+	protected function _getTemplates($action, $template_dir = null) {
+		// By default, this returns the action-specific templates and the root
+		// templates.
+		if ($template_dir === null) {
+			return array_merge(
+				$this->_getTemplates($action, ROOT . '/template'),
+				$this->_getTemplates($action, ROOT . '/template/' . $action)
+			);
+		}
+
+		// If we make it to here, we're loading a specific directory
+		$templates = array();
+		if (file_exists($template_dir) && is_dir($template_dir)) {
+			if ($dir = opendir($template_dir)) {
+				while (($filename = readdir($dir)) !== false) {
+					if ($filename[0] != '.' && preg_match("/\.html$/", $filename)) {
+						$name = preg_replace('/\.html$/', '', $filename);
+						$value = file_get_contents($template_dir . '/' . $filename);
+						$templates[$name] = $value;
+					}
+				}
+				closedir($dir);
+			}
+		}
+
+		return $templates;
 	}
 }
 

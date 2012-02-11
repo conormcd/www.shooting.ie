@@ -26,8 +26,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-require ROOT . '/lib/mustache/Mustache.php';
-
 /**
  * A default controller which can be used for most GET requests. This can be
  * extended in order to provide more specific handling of requests. Simply
@@ -53,7 +51,7 @@ class Controller {
 	protected $_view;
 
 	/**
-	 * Initialise this controller. 
+	 * Initialise this controller.
 	 *
 	 * @param string $action   The first portion of the URL after the domain.
 	 * @param object $request  The _Request object from klein.
@@ -86,17 +84,12 @@ class Controller {
 	 * @return void
 	 */
 	public function get() {
-		$templates = $this->_getTemplates();
-		$mustache = new Mustache(
-			$templates['main'],
-			$this->_getView(),
-			$templates
-		);
-		print $mustache->render();
+		$view = $this->_getView();
+		print $view->render();
 	}
 
 	/**
-	 * Get the model for the current request. 
+	 * Get the model for the current request.
 	 *
 	 * @return object An appropriate sub-class of Model if one exists, if not,
 	 *                the _Response object from klein is used as the model.
@@ -115,54 +108,22 @@ class Controller {
 	}
 
 	/**
-	 * Get the templates for the current page request.
+	 * Get the view for the current request.
 	 *
-	 * @param string $template_dir ONLY FOR RECURSIVE CALLS. DO NOT USE.
-	 *
-	 * @return array The templates for the current page request.
-	 */
-	protected function _getTemplates($template_dir = null) {
-		// By default, this returns the action-specific templates and the root
-		// templates.
-		if ($template_dir === null) {
-			return array_merge(
-				$this->_getTemplates(ROOT . '/template'),
-				$this->_getTemplates(ROOT . '/template/' . $this->_action)
-			);
-		}
-
-		// If we make it to here, we're loading a specific directory
-		$templates = array();
-		if ($dir = opendir($template_dir)) {
-			while (($filename = readdir($dir)) !== false) {
-				if ($filename[0] != '.' && preg_match("/\.html$/", $filename)) {
-					$name = preg_replace('/\.html$/', '', $filename);
-					$value = file_get_contents($template_dir . '/' . $filename);
-					$templates[$name] = $value;
-				}
-			}
-			closedir($dir);
-		} else {
-			throw new Exception('Missing template directory: ' . $template_dir);
-		}
-
-		return $templates;
-	}
-
-	/**
-	 * Get the view for the current request. 
-	 *
-	 * @return object An appropriate sub-class of View if one exists, if not, 
-	 *                the _Response object from klein is used as the view.
+	 * @return object An appropriate sub-class of View if one exists, if not,
+	 *                the View class itself is used.
 	 */
 	protected function _getView() {
 		if (!$this->_view) {
 			$view_name = $this->_action_name . 'View';
 			$view_file = ROOT . "/view/$view_name.php";
 			if (file_exists($view_file)) {
-				$this->_view = new $view_name($this->_getModel());
+				$this->_view = new $view_name(
+					$this->_action,
+					$this->_getModel()
+				);
 			} else {
-				$this->_view = $this->_response;
+				$this->_view = new View($this->_action, $this->_getModel());
 			}
 		}
 		return $this->_view;
