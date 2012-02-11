@@ -1,0 +1,102 @@
+/*
+ * Copyright (c) 2012, Conor McDermottroe
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/* CSS specific to shooting.ie */
+
+.calendar .day {
+	margin-top: 10px;
+}
+
+.calendar .event {
+	margin-top: 5px;
+	margin-left: 40px;
+}
+
+.calendar .orgimg {
+	float: left;
+}
+
+.calendar .event h3, .calendar .event table {
+	margin-left: 40px;
+}
+
+.calendar h3 {
+	line-height: 30px;
+	font-weight: normal;
+}
+
+.calendar table.event_details {
+	display: none;
+}
+
+.calendar table.event_details th, .calendar table.event_details td {
+	border: 0;
+	padding: 0;
+
+	text-align: left;
+	vertical-align: top;
+}
+
+.calendar table.event_details th {
+	width: 5em;
+}
+
+#map_canvas {
+	height: 600px; /* Initial height, it's reset in JS. */
+}
+
+/* This is needed to undo the max-width: 100% from Twitter Boostrap.*/
+#map_canvas img {
+	max-width: none;
+}
+
+#club_list div {
+	height: 2em;
+	line-height: 2em;
+
+	background-color: #EEEEEE;
+
+	margin-bottom: 2px;
+}
+
+#club_list div .arrowhead {
+	float: right;
+
+	width: 0;
+	height: 0;
+
+	border-width: 1em;
+	border-style: solid;
+	border-color: #FFFFFF #FFFFFF #FFFFFF #EEEEEE;
+}
+
+#club_list .active, #club_list .hover {
+	background-color: #CCCCCC;
+}
+
+#club_list .active .arrowhead, #club_list .hover .arowwhead {
+	border-color: #FFFFFF #FFFFFF #FFFFFF #CCCCCC;
+}
