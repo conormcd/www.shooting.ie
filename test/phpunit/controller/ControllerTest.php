@@ -99,27 +99,6 @@ class ControllerTest extends TestCase {
 		}
 	}
 
-	/** 
-	 * Make sure that at least the basic, required templates are returned for 
-	 * each of the actions.
-	 *
-	 * @return void
-	 */
-	public function testGetTemplatesReturnsRequiredTemplates() {
-		$req = new _Request();
-		$res = new _Response();
-		foreach (self::$_test_actions as $action) {
-			$controller = new ExposedController($action, $req, $res);
-			$templates = $controller->getTemplates();
-			foreach (array('main', 'head', 'tail') as $template) {
-				$this->assertTrue(
-					array_key_exists($template, $templates),
-					"Missing \"$template\" template for /$action"
-				);
-			}
-		}
-	}
-
 	/**
 	 * Ensure that the controller can get a non-null view which is either the 
 	 * klein response object or a custom view class.
@@ -198,15 +177,6 @@ class ExposedController extends Controller {
 	 */
 	public function getModel() {
 		return $this->_getModel();
-	}
-
-	/**
-	 * Expose Controller::_getTemplates.
-	 *
-	 * @return See Controller::_getTemplates.
-	 */
-	public function getTemplates() {
-		return $this->_getTemplates();
 	}
 
 	/**
