@@ -65,21 +65,26 @@ abstract class JSONModel extends Model {
 		if ($json === false) {
 			throw new Exception("Failed to read $file");
 		}
-		return $this->_parseJSON($json);
+		return $this->_parseJSON($json, basename($file));
 	}
 
 	/**
 	 * Parse a JSON string.
 	 *
-	 * @param string $str A string which should contain valid JSON.
+	 * @param string $str  A string which should contain valid JSON.
+	 * @param string $file Optional filename which can be used to produce
+	 *                     better diagnostics.
 	 *
 	 * @return array The JSON in the string, decoded into an array.
 	 */
-	protected function _parseJSON($str) {
+	protected function _parseJSON($str, $file = null) {
 		$data = json_decode($str, true);
 		if ($data === null) {
 			$json_error = json_last_error();
 			$message  = "Malformed JSON";
+			if ($file !== null) {
+				$message .= " in $file";
+			}
 			switch ($json_error) {
 				case JSON_ERROR_DEPTH:
 					$message .= ": Maximum stack depth exceeded.";
