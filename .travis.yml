@@ -2,5 +2,11 @@ language: php
 phps:
   - 5.3
   - 5.4
-before_script: "git submodule update --init"
-script: ant
+before_script:
+  - git submodule update --init
+  - pyrus channel-discover pear.phpunit.de
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
+  - pyrus install phpunit/phpcpd
+  - phpenv rehash
+script: ant test-travis

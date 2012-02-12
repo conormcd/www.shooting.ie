@@ -34,6 +34,9 @@
 	<!-- Run all the tests. -->
 	<target name="test" depends="lint,phpunit,phpcpd,phpcs,phpmd" />
 
+	<!-- Run all the tests which Travis can run. -->
+	<target name="test-travis" depends="lint,phpunit,phpcpd,phpcs" />
+
 	<!-- Generate the docs. -->
 	<target name="doc" depends="phpdox" />
 
