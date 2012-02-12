@@ -1,4 +1,10 @@
 {{>head}}
 <h1>Help</h1>
-<p>Help content goes here.</p>
+{{#help}}
+<h2>{{title}}</h2>
+{{#questions}}
+<h3>{{question}}</h3>
+<div class="answer">{{{answer}}}</div>
+{{/questions}}
+{{/help}}
 {{>tail}}
