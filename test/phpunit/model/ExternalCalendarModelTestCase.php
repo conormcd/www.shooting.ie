@@ -113,12 +113,9 @@ abstract class ExternalCalendarModelTestCase extends TestCase {
 					$key,
 					'The sentinel event from the past was included.'
 				);
+				$times = explode(' - ', $event['time']);
 				$this->assertTrue(
-					strtotime(
-						$day .
-						' ' .
-						array_shift(explode(' - ', $event['time']))
-					) > $now,
+					strtotime("$day {$times[0]}") > $now,
 					"An event from the past was included."
 				);
 			}
