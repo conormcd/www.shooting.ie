@@ -30,6 +30,9 @@
 
 define('ROOT', __DIR__);
 
+// The site doesn't make much sense outside of Ireland.
+date_default_timezone_set('Europe/Dublin');
+
 // Make an autoloader which will load Models, Views and Controllers.
 $loader = function ($name) {
 	if (preg_match('/(Controller|Model|View)$/', $name, $matches)) {
