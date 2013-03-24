@@ -55,7 +55,7 @@ class GoogleCalendarModel extends ExternalCalendarModel {
 	protected function _load() {
 		$now = time();
 		$events = array();
-		if (array_key_exists('data', $this->_gcal_data)) {
+		if (array_key_exists('data', $this->_gcal_data) && array_key_exists('items', $this->_gcal_data['data'])) {
 			foreach ($this->_gcal_data['data']['items'] as $item) {
 				foreach ($item['when'] as $when) {
 					$start = strtotime($when['start']);
