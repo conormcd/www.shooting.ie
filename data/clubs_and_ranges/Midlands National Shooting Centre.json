@@ -1,0 +1,13 @@
+{
+   "longitude" : -7.66986274078126,
+   "latitude" : 53.237985240618,
+   "url" : "http://www.nationalshootingcentre.ie/",
+   "address" : {
+      "extended-address" : [
+         "Blueball",
+         "Tullamore"
+      ],
+      "street-address" : "Derrymore",
+      "locality" : "Co. Offaly"
+   }
+}
