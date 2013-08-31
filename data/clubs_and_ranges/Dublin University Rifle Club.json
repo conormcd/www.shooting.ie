@@ -1,0 +1,14 @@
+{
+   "longitude" : -6.25254297679989,
+   "latitude" : 53.3443899108315,
+   "url" : "http://www.rifle.tcdlife.ie/",
+   "address" : {
+      "postal-code" : "2",
+      "extended-address" : [
+         "Sports Centre",
+         "Trinity College"
+      ],
+      "street-address" : "c/o DUCAC",
+      "locality" : "Dublin"
+   }
+}

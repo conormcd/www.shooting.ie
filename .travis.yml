@@ -2,4 +2,4 @@ language: php
 php:
   - 5.4
   - 5.5
-script: echo "No test yet."
+script: phpunit test
