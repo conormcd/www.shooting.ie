@@ -1,0 +1,13 @@
+{
+   "longitude" : -8.437221,
+   "latitude" : 52.325911,
+   "url" : "http://www.mtsc.ie/",
+   "address" : {
+      "extended-address" : [
+         "Glenroe",
+         "Kilfinnane"
+      ],
+      "street-address" : "Ballinacourty",
+      "locality" : "Co. Limerick"
+   }
+}
