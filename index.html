@@ -336,6 +336,9 @@
 					return "";
 				}
 			};
+			document.gps_coordinates = function(club) {
+				return "<br />GPS: " + club['latitude'].toFixed(4) + ", " + club['longitude'].toFixed(4);
+			};
 			for (cnr in clubs_and_ranges) {
 				clubs_and_ranges[cnr]['point'] = new google.maps.LatLng(
 					clubs_and_ranges[cnr]['latitude'],
@@ -351,12 +354,8 @@
 					info = "<a href=\"" + clubs_and_ranges[cnr]['url'] + "\">" + info + "</a>";
 				}
 				info += "<br />";
-				if (clubs_and_ranges[cnr]['phone']) {
-					info += "<br /><span class=\"tel\">Phone: <a clas=\"value\" ";
-					info += "href=\"tel:" + clubs_and_ranges[cnr]['phone'] + "\">";
-					info += clubs_and_ranges[cnr]['phone'] + "</a>";
-				}
 				info += document.address(clubs_and_ranges[cnr]);
+				info += document.gps_coordinates(clubs_and_ranges[cnr]);
 				info += "<br /><a target=\"_blank\" ";
 				info += "href=\"http://maps.google.com/maps?saddr=&daddr=" +
 					clubs_and_ranges[cnr]['latitude'] + "," +
