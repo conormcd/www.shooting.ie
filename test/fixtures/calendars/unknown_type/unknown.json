@@ -1,0 +1,6 @@
+{
+  "name": "Unknown type of calendar",
+  "type": "NotARealType",
+  "priority": 1,
+  "url": "this/should/not/matter"
+}

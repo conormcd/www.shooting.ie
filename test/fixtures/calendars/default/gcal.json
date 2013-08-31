@@ -1,0 +1,6 @@
+{
+  "name": "Google Calendar Test",
+  "type": "Google",
+  "priority": 1,
+  "url": "test/fixtures/calendars/default/gcal/data.json"
+}
