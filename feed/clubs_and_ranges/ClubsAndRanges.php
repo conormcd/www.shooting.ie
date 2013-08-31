@@ -1,11 +1,15 @@
 <?php
 
+require_once dirname(__DIR__) . '/Feed.php';
+
 /**
  * A wrapper for reading club/range data files.
  *
  * @author Conor McDermottroe <conor@mcdermottroe.com>
  */
-class ClubsAndRanges {
+class ClubsAndRanges
+extends Feed
+{
     /**
      * Initialise with a directory which will contain .json files for each club 
      * or range.
@@ -13,7 +17,7 @@ class ClubsAndRanges {
      * @param string $data_dir The path to the directory.
      */
     public function __construct($data_dir) {
-        $this->data_dir = $data_dir;
+        parent::__construct($data_dir);
         $this->data = null;
     }
 
@@ -32,44 +36,6 @@ class ClubsAndRanges {
             }
         }
         return $this->data;
-    }
-
-    /**
-     * Get the files which should be read.
-     *
-     * @return array The full paths to the data files.
-     */
-    public function dataFiles() {
-        $files = array();
-        if ($dir = opendir($this->data_dir)) {
-            while (($entry = readdir($dir)) !== false) {
-                if (preg_match('/\.json$/', $entry)) {
-                    $files[] = realpath($this->data_dir . '/' . $entry);
-                }
-            }
-            closedir($dir);
-        }
-        return $files;
-    }
-
-    /**
-     * Get the JSON form of the data.
-     *
-     * @return string The output of getData, JSON encoded.
-     */
-    public function json() {
-        return json_encode($this->data(), JSON_FORCE_OBJECT);
-    }
-
-    /**
-     * Get the JSON-P form of the data.
-     *
-     * @param string $function_name The name of the wrapping function.
-     *
-     * @return string The output of getData, JSON-P encoded.
-     */
-    public function jsonp($function_name) {
-        return "$function_name(" . $this->json() . ")";
     }
 }
 
