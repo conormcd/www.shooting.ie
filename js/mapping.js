@@ -63,6 +63,7 @@ function drawClubsAndRanges(map, clubs) {
 				clubs[club_name]['info_window'].close();
 			}
 			clubs[this.title]['info_window'].open(map, clubs[this.title]['marker']);
+			document.location.hash = this.title;
 		});
 	}
 }
@@ -80,6 +81,19 @@ $(function() {
 		'/feed/clubs_and_ranges/',
 		function (clubs_and_ranges) {
 			drawClubsAndRanges(map, clubs_and_ranges);
+			if (document.location.hash) {
+				selectedClub = decodeURIComponent(
+					document.location.hash.substring(1).replace(/\+/g, '%20')
+				);
+				google.maps.event.trigger(
+					clubs_and_ranges[selectedClub]['marker'],
+					'click',
+					{
+						latLng: clubs_and_ranges[selectedClub]['point']
+					}
+				);
+				map.setZoom(10);
+			}
 		},
 		'json'
 	);
