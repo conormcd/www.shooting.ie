@@ -74,7 +74,7 @@ function drawClubsAndRanges(map, clubs) {
 	}
 }
 
-$(function() {
+function loadMap() {
 	var map = new google.maps.Map(
 		document.getElementById('map_canvas'),
 		{
@@ -114,5 +114,104 @@ $(function() {
 			}
 		},
 		'json'
+	);
+}
+
+function loadCalendar(onSuccess, nextAction) {
+	$.getJSON('/feed/calendars/').done(function (data) {
+		onSuccess(data)
+		nextAction();
+	}).fail(function () {
+		nextAction();
+	});
+}
+
+function formatDate(epochTime) {
+	days = [
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+	]
+	months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+	date = new Date();
+	date.setTime(epochTime * 1000);
+	return  days[date.getDay()] + ' ' +
+			date.getDate() + ' ' +
+			months[date.getMonth()] + ' ' +
+			date.getFullYear();
+}
+
+function renderCalendar(events) {
+	contents = '<ol class="events">';
+	for (event_time in events) {
+		contents += '<li class="day">';
+		contents += '<div class="date">' + formatDate(event_time) + '</div>';
+		contents += '<ol>';
+		for (idx in events[event_time]) {
+			title = events[event_time][idx]['title'];
+			details = events[event_time][idx]['details'];
+			loc = events[event_time][idx]['location'];
+
+			contents += '<li class="event">' + title;
+			contents += '<div class="details">';
+			if (details) {
+				contents += '<div>Details: ' + details + '</div>';
+			}
+			if (loc) {
+				contents += '<div>Location: ' + loc + '</div>';
+			}
+			contents += '</div>';
+			contents += '</li>';
+		}
+		contents += '</ol>';
+		contents += '</li>';
+	}
+	contents += '</ol>';
+	$('#calendar').append(contents);
+	$('#calendar .event').click(function() {
+		$(this).find('.details').toggle();
+	});
+}
+
+$(function() {
+	loadCalendar(
+		function(events) {
+			renderCalendar(events);
+
+			// Resize the containers to show both the map and sidebar.
+			var sidebarWidth = 400;
+			var width = $(window).width();
+			var height = $(window).height();
+			$('#map_canvas').css(
+				'width', (width - sidebarWidth) + 'px'
+			).css(
+				'height', height
+			);
+			$('#calendar').css(
+				'width', sidebarWidth
+			).css(
+				'height', height
+			).show();
+		},
+		function() {
+			loadMap();
+		}
 	);
 });

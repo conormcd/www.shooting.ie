@@ -1,0 +1,54 @@
+html {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+#calendar {
+    float: right;
+    display: none;
+    overflow: scroll;
+    font-size: 13px;
+}
+
+#calendar .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+#calendar ol {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+#calendar li {
+    list-style: none;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+#calendar .day {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#calendar .event {
+    margin-left: 20px;
+}
+
+#calendar .details {
+    display: none;
+}
