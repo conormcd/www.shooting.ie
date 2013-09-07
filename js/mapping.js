@@ -165,7 +165,7 @@ function renderCalendar(events) {
 		contents += '<div class="date">' + formatDate(event_time) + '</div>';
 		contents += '<ol>';
 		for (idx in events[event_time]) {
-			title = events[event_time][idx]['title'];
+			title = events[event_time][idx]['title_clean'];
 			details = events[event_time][idx]['details'];
 			loc = events[event_time][idx]['location'];
 

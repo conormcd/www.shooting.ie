@@ -13,7 +13,7 @@ class Calendars
 extends Feed
 {
     /** A regular expression matching unwanted bits in an event title. */
-    const CRUFT = '/\s*\*?\s*(?:postponed|cancell?ed|confirmed)\s*\*?\s*$/i';
+    const CRUFT = '/\W*(?:postponed|cancell?ed|confirmed|provisional)\W*$/i';
 
     /**
      * Initialise with a directory which will contain a .json file for each
@@ -64,6 +64,8 @@ extends Feed
             );
             $this->data = $this->removeDuplicateEvents($this->data);
             $this->data = $this->removeCancelledEvents($this->data);
+            $this->data = $this->cleanEventTitles($this->data);
+            $this->data = $this->guessLocations($this->data);
 
             ksort($this->data);
         }
@@ -193,6 +195,54 @@ extends Feed
             }
         }
         return $new_data;
+    }
+
+    /**
+     * Do some cosmetic cleaning of the event titles. There's some knowledge of
+     * the habits of the calendar writers in here, for good or ill.
+     *
+     * @param array $data This will be $this->data
+     *
+     * @return array A copy of $this->data with the event titles cleaned.
+     */
+    public function cleanEventTitles($data) {
+        foreach ($data as $timestamp => $events) {
+            $num_events = count($events);
+            for ($i = 0; $i < $num_events; $i++) {
+                $ev = $data[$timestamp][$i];
+                $ev['title_clean'] = preg_replace(self::CRUFT, '', $ev['title']);
+                $ev['title_clean'] = preg_replace(
+                    '/\s*\*\s*/',
+                    '',
+                    $ev['title_clean']
+                );
+                $data[$timestamp][$i] = $ev;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Guess the locations of events that don't have a location set.
+     *
+     * @param array $data This will be $this->data
+     *
+     * @return array A copy of $this->data with the event titles cleaned.
+     */
+    public function guessLocations($data) {
+        foreach ($data as $timestamp => $events) {
+            $num_events = count($events);
+            for ($i = 0; $i < $num_events; $i++) {
+                $ev = $data[$timestamp][$i];
+                if (!$ev['location']) {
+                    if (preg_match('/ @ (.*)$/', $ev['title'], $m)) {
+                        $ev['location'] = $m[1];
+                    }
+                }
+                $data[$timestamp][$i] = $ev;
+            }
+        }
+        return $data;
     }
 }
 
