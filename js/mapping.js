@@ -63,6 +63,13 @@ function drawClubsAndRanges(map, clubs) {
 				clubs[club_name]['info_window'].close();
 			}
 			clubs[this.title]['info_window'].open(map, clubs[this.title]['marker']);
+
+			// Change the URL. Use pushstate if possible.
+			if (typeof history.pushstate == 'function') {
+				history.pushstate({}, this.title, '/#' + this.title);
+			} else {
+				document.location.hash = this.title;
+			}
 		});
 	}
 }
@@ -80,6 +87,31 @@ $(function() {
 		'/feed/clubs_and_ranges/',
 		function (clubs_and_ranges) {
 			drawClubsAndRanges(map, clubs_and_ranges);
+			goToClubInHash = function() {
+				selectedClub = decodeURIComponent(
+					document.location.hash.substring(1).replace(/\+/g, '%20')
+				);
+				if (selectedClub in clubs_and_ranges) {
+					google.maps.event.trigger(
+						clubs_and_ranges[selectedClub]['marker'],
+						'click',
+						{
+							latLng: clubs_and_ranges[selectedClub]['point']
+						}
+					);
+				} else {
+					for (club_name in clubs_and_ranges) {
+						clubs_and_ranges[club_name]['info_window'].close();
+					}
+					map.panTo(new google.maps.LatLng(53.5, -8.0));
+				}
+			}
+			if (document.location.hash) {
+				goToClubInHash();
+			}
+			if ('onhashchange' in window) {
+				window.onhashchange = goToClubInHash;
+			}
 		},
 		'json'
 	);
