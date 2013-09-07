@@ -93,14 +93,16 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testCachedFetchFail() {
-        $calendar = $this->dummyCalendar();
-        $fetcher = function() {
-            return rand();
-        };
-        $this->assertEquals(
-            $calendar->cachedFetch($fetcher, 'key3', 5),
-            $calendar->cachedFetch($fetcher, 'key3', 5)
-        );
+        if (function_exists('apc_store')) {
+            $calendar = $this->dummyCalendar();
+            $fetcher = function() {
+                return rand();
+            };
+            $this->assertEquals(
+                $calendar->cachedFetch($fetcher, 'key3', 5),
+                $calendar->cachedFetch($fetcher, 'key3', 5)
+            );
+        }
     }
 
     /**
