@@ -67,14 +67,16 @@ extends Calendar
         $num_events = count($data) - 1;
         for ($i = 0; $i < $num_events; $i++) {
             foreach ($this->days($data[$i+1][0]) as $ts) {
-                $events[] = array(
-                    'timestamp' => $ts,
-                    'date' => strftime('%Y-%m-%d', $ts),
-                    'title' => $data[$i+1][1],
-                    'location' => $data[$i+1][3],
-                    'priority' => $this->priority,
-                    'calendar' => $this->name,
-                );
+                foreach (preg_split('/[\r\n]+/', $data[$i+1][1]) as $title) {
+                    $events[] = array(
+                        'timestamp' => $ts,
+                        'date' => strftime('%Y-%m-%d', $ts),
+                        'title' => $title,
+                        'location' => $data[$i+1][3],
+                        'priority' => $this->priority,
+                        'calendar' => $this->name,
+                    );
+                }
             }
         }
 
