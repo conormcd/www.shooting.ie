@@ -27,17 +27,19 @@ extends Calendar
 
         $events = array();
         foreach ($gcal_events as $event) {
-            foreach ($this->days($event['when']) as $ts) {
-                $events[] = array(
-                    'timestamp' => $ts,
-                    'date' => strftime('%Y-%m-%d', $ts),
-                    'title' => $event['title'],
-                    'details' => $event['details'],
-                    'status' => $event['status'],
-                    'location' => $event['location'],
-                    'priority' => $this->priority,
-                    'calendar' => $this->name,
-                );
+            if (array_key_exists('when', $event)) {
+                foreach ($this->days($event['when']) as $ts) {
+                    $events[] = array(
+                        'timestamp' => $ts,
+                        'date' => strftime('%Y-%m-%d', $ts),
+                        'title' => $event['title'],
+                        'details' => $event['details'],
+                        'status' => $event['status'],
+                        'location' => $event['location'],
+                        'priority' => $this->priority,
+                        'calendar' => $this->name,
+                    );
+                }
             }
         }
 
