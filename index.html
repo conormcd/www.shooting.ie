@@ -1,26 +1,40 @@
-<html>
-	<head>
-		<title>Shooting.ie</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-	</head>
-	<body>
-		<div id="map_canvas"></div>
-		<div id="calendar">
-			<div class="title">Upcoming Events</div>
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-		<script src="js/mapping.js"></script>
-		<script>
-			/* Google Analytics */
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-299128-7']);
-			_gaq.push(['_trackPageview']);
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Shooting.ie</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <div id="body" class="row">
+            <div id="map" class="col-md-9"></div>
+            <div id="calendar" class="col-md-3">
+                <h4>Upcoming Events</h4>
+            </div>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script src="js/calendar.js"></script>
+        <script src="js/map.js"></script>
+        <script>
+            /* Trigger the rendering of the map and calendar. */
+            $(function() {
+                $('#map').css('height', $(window).height());
+                loadMap();
+                loadCalendar();
+            });
+
+            /* Google Analytics */
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-299128-7']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
 </html>
