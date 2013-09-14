@@ -255,6 +255,18 @@ extends PHPUnit_Framework_TestCase
                     'calendar' => 'bar',
                 ),
             ),
+            1240 => array(
+                array(
+                    'title' => 'Event F',
+                    'priority' => 1,
+                    'calendar' => 'foo',
+                ),
+                array(
+                    'title' => 'F Event',
+                    'priority' => 2,
+                    'calendar' => 'bar',
+                ),
+            ),
         );
         $output = array(
             1234 => array(
@@ -299,6 +311,13 @@ extends PHPUnit_Framework_TestCase
                     'title' => 'Event E',
                     'priority' => 1,
                     'calendar' => 'bar',
+                ),
+            ),
+            1240 => array(
+                array(
+                    'title' => 'Event F',
+                    'priority' => 1,
+                    'calendar' => 'foo',
                 ),
             ),
         );

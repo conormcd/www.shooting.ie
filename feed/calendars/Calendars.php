@@ -81,6 +81,8 @@ extends Feed
      * @return boolean True if the events are similar, false otherwise.
      */
     public function eventsSimilar($event_a, $event_b) {
+        // Check if each of the titles (minus CRUFT) are equal or a prefix of
+        // each other.
         $event_a = trim(preg_replace(self::CRUFT, '', $event_a['title']));
         $event_b = trim(preg_replace(self::CRUFT, '', $event_b['title']));
         if ($event_a === $event_b) {
@@ -90,6 +92,16 @@ extends Feed
         } else if (strpos($event_b, $event_a) === 0) {
             return true;
         }
+
+        // Check if the titles just contain the same words
+        $w_a = preg_split('/\s+/', preg_replace('/[^\w\s]/', '', $event_a));
+        $w_b = preg_split('/\s+/', preg_replace('/[^\w\s]/', '', $event_b));
+        sort($w_a);
+        sort($w_b);
+        if ($w_a == $w_b) {
+            return true;
+        }
+
         return false;
     }
 
