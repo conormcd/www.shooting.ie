@@ -36,24 +36,67 @@ function formatDate(epochTime) {
 			date.getFullYear();
 }
 
-function renderCalendar(events) {
-	contents = '<ol class="events">';
-	for (event_time in events) {
-		contents += '<li class="day">';
-		contents += '<h5>' + formatDate(event_time) + '</h5>';
-		contents += '<ol>';
-		for (idx in events[event_time]) {
-			title = events[event_time][idx]['title_clean'];
+function newElement(element, attrs, text) {
+	if (arguments.length < 3) { text = null; }
+	if (arguments.length < 2) { attrs = {}; }
 
-			popover_contents = 'Here are the popover contents.';
-
-			contents += '<li class="event" data-trigger="hover" data-content="here is some content" data-toggle="popover" data-original-title="' + title + '">' +
-						title + 
-						'</li>';
-		}
-		contents += '</ol>';
-		contents += '</li>';
+	ele = document.createElement(element);
+	for (attr in attrs) {
+		ele.setAttribute(attr, attrs[attr]);
 	}
-	contents += '</ol>';
-	$('#calendar').append(contents).css('height', $(window).height());
+	if (text != null) {
+		ele.appendChild(document.createTextNode(text));
+	}
+	return ele;
+}
+
+function buildEventDetailsTable(obj, entries) {
+	table  = '<table>';
+	for (entry in entries) {
+		if (entry in obj && obj[entry]) {
+			table += '<tr>';
+			table += '<th class="event-details">' + entries[entry] + '</th>';
+			table += '<td class="event-details">' + obj[entry] + '</td>';
+			table += '</tr>';
+		}
+	}
+	table += '</table>';
+	return table;
+}
+
+function renderCalendar(events) {
+	all_events = newElement('ol', {'class': 'events'});
+	for (event_time in events) {
+		day = newElement('li', {'class': 'day'});
+		day.appendChild(newElement('h5', {}, formatDate(event_time)));
+		day_events = newElement('ol');
+		for (idx in events[event_time]) {
+			day_event = newElement(
+				'li',
+				{
+					'class': 'event',
+					'data-content': buildEventDetailsTable(
+						events[event_time][idx],
+						{
+							'calendar': 'Calendar',
+							'location': 'Location',
+							'details': 'Details'
+						}
+					),
+					'data-html': true,
+					'data-toggle': 'popover',
+					'data-placement': 'auto top',
+					'data-trigger': 'hover',
+					'title': events[event_time][idx]['title_clean']
+				},
+				events[event_time][idx]['title_clean']
+			);
+			$(day_event).popover();
+			day_events.appendChild(day_event);
+		}
+		day.appendChild(day_events);
+		all_events.appendChild(day);
+	}
+
+	$('#calendar').append(all_events).css('height', $(window).height());
 }
