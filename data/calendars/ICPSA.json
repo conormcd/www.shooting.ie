@@ -1,0 +1,6 @@
+{
+  "name": "ICPSA",
+  "type": "ICPSA",
+  "priority": 1,
+  "url": "http://www.icpsa.ie/calendar/%yyyy/%mm"
+}

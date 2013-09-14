@@ -1,0 +1,6 @@
+{
+  "name": "NRAI Calendar Test",
+  "type": "NRAI",
+  "priority": 1,
+  "url": "test/fixtures/calendars/default/nrai/data.html"
+}

@@ -74,9 +74,9 @@ function drawClubsAndRanges(map, clubs) {
 	}
 }
 
-$(function() {
+function loadMap() {
 	var map = new google.maps.Map(
-		document.getElementById('map_canvas'),
+		document.getElementById('map'),
 		{
 			zoom: 7,
 			center: new google.maps.LatLng(53.5, -8.0),
@@ -115,4 +115,4 @@ $(function() {
 		},
 		'json'
 	);
-});
+}

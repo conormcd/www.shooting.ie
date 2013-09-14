@@ -1,0 +1,29 @@
+#map {
+    height: 100%;
+}
+
+#calendar {
+    overflow: scroll;
+}
+
+#calendar ol {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+#calendar li {
+    list-style: none;
+}
+
+.popover-content {
+    padding: 5px;
+}
+
+th.event-details, td.event-details {
+    vertical-align: top;
+}
+
+td.event-details {
+    padding-left: 10px;
+}
