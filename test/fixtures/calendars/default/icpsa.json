@@ -1,0 +1,6 @@
+{
+  "name": "ICPSA Calendar Test",
+  "type": "ICPSA",
+  "priority": 1,
+  "url": "test/fixtures/calendars/default/icpsa/data_%yyyy_%mm.html"
+}
