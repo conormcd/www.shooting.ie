@@ -27,7 +27,7 @@ extends Calendar
                 foreach ($month_events as $event_day => $day_events) {
                     $timestamp = strtotime(
                         sprintf(
-                            '%4d-%02d-%02dT00:00:00Z',
+                            '%4d-%02d-%02d',
                             $month[0],
                             $month[1],
                             $event_day
