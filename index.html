@@ -11,6 +11,9 @@
             <div id="map" class="col-md-9"></div>
             <div id="calendar" class="col-md-3">
                 <h4>Upcoming Events</h4>
+                <div class="loading">
+                    <img src="img/loading.gif" alt="Loading..." />
+                </div>
             </div>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -21,7 +24,19 @@
         <script>
             /* Trigger the rendering of the map and calendar. */
             $(function() {
-                $('#map').css('height', $(window).height());
+                // Size the map box to the full height
+                height = $(window).height();
+                $('#map').css('height', height);
+
+                // Size the loading
+                cal = $('#calendar');
+                $('#calendar .loading').css(
+                    'width',
+                    cal.width() - (
+                        parseInt(cal.css('padding-left').replace('px', '')) +
+                        parseInt(cal.css('padding-right').replace('px', ''))
+                    )
+                ).css('height', height / 3);
                 loadMap();
                 loadCalendar();
             });

@@ -6,6 +6,17 @@
     overflow: scroll;
 }
 
+#calendar .loading {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#calendar .loading img {
+    vertical-align: middle;
+}
+
 #calendar ol {
     margin: 0;
     border: 0;

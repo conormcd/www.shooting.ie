@@ -98,5 +98,6 @@ function renderCalendar(events) {
 		all_events.appendChild(day);
 	}
 
+	$('#calendar .loading').hide();
 	$('#calendar').append(all_events).css('height', $(window).height());
 }
