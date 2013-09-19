@@ -56,8 +56,12 @@ extends Feed
                 }
 
                 // Patch the data into the overall list of things we have.
-                foreach ($cal->events() as $event) {
-                    $this->data[$event['timestamp']][] = $event;
+                try {
+                    foreach ($cal->events() as $event) {
+                        $this->data[$event['timestamp']][] = $event;
+                    }
+                } catch (Exception $e) {
+                    // Ignore exceptions from that calendar.
                 }
             }
 
