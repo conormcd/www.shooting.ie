@@ -4,4 +4,11 @@ php:
   - 5.4
   - 5.5
 
+before_script:
+  - "export PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini"
+  - "if php --version | grep -q 'PHP 5.4'; then echo \"extension=apc.so\" >> ${PHP_INI}; fi"
+  - "if php --version | grep -q 'PHP 5.5'; then printf \"\\n\" | pecl install apcu-beta; fi"
+  - "if php --version | grep -q 'PHP 5.5'; then echo \"extension=apcu.so\" >> ${PHP_INI}; fi"
+  - "echo \"apc.enable_cli = 1\" >> ${PHP_INI}"
+
 script: phpunit test

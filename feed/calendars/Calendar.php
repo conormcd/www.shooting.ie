@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../lib/ErrorHandler.php';
+require_once __DIR__ . '/../../lib/Cache.php';
 
 /**
  * A generic calendar type.
@@ -47,41 +47,6 @@ abstract class Calendar {
     }
 
     /**
-     * Handle a generic cached fetch of a resource from somewhere.
-     *
-     * @param callable $fetcher   The fetching function. This should raise an
-     *                            exception if the fetch fails.
-     * @param string   $cache_key The key to use to refer to the fetched
-     *                            resource in the cache.
-     * @param int      $ttl       The time-to-live, in seconds, of the item in
-     *                            the cache.
-     *
-     * @return mixed The result of the fetcher function possibly from cache or
-     *               null if the fetch fails.
-     */
-    public function cachedFetch($fetcher, $cache_key, $ttl) {
-        $result = null;
-        if (function_exists('apc_fetch')) {
-            $result = apc_fetch($cache_key, $success);
-            if (!$success) {
-                $result = null;
-            }
-        }
-        if ($result === null) {
-            try {
-                $result = call_user_func($fetcher);
-                if (function_exists('apc_store')) {
-                    apc_store($cache_key, $result, $ttl);
-                }
-            } catch (Exception $e) {
-                ErrorHandler::handleException($e, false);
-                return null;
-            }
-        }
-        return $result;
-    }
-
-    /**
      * Fetch a URL and cache the result if possible.
      *
      * @param string $url The URL to fetch.
@@ -89,11 +54,12 @@ abstract class Calendar {
      * @return array The contents found at the URL.
      */
     public function cachedURLFetch($url) {
-        return $this->cachedFetch(
+        return Cache::exec(
             function () use ($url) {
                 return file_get_contents($url);
             },
             'SHOOTING_IE_URL_FETCH_' . md5($url),
+            86400,
             3600
         );
     }
@@ -106,7 +72,7 @@ abstract class Calendar {
      * @return array The decoded form of the JSON fetched from the URL.
      */
     public function cachedJSONFetch($url) {
-        return $this->cachedFetch(
+        return Cache::exec(
             function () use ($url) {
                 $contents = file_get_contents($url);
                 $contents = json_decode($contents, true);
@@ -116,6 +82,7 @@ abstract class Calendar {
                 return $contents;
             },
             'SHOOTING_IE_JSON_FETCH_' . md5($url),
+            86400,
             3600
         );
     }
