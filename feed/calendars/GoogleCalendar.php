@@ -54,7 +54,7 @@ extends Calendar
      *
      * @return array An array of UNIX epoch timestamps.
      */
-    private function days($when) {
+    public function days($when) {
         $timestamps = array();
         foreach ($when as $period) {
             $timestamps = array_merge(
