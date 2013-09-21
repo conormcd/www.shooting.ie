@@ -54,58 +54,6 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the basic functionality of cachedFetch.
-     *
-     * @return void
-     */
-    public function testCachedFetch() {
-        $calendar = $this->dummyCalendar();
-        $result = $calendar->cachedFetch(
-            function () {
-                return 'data';
-            },
-            'key',
-            1
-        );
-        $this->assertEquals('data', $result);
-    }
-
-    /**
-     * Test that cachedFetch caches.
-     *
-     * @return void
-     */
-    public function testCachedFetchCaches() {
-        $calendar = $this->dummyCalendar();
-        $result = $calendar->cachedFetch(
-            function () {
-                throw new Exception('foo');
-            },
-            'key2',
-            1
-        );
-        $this->assertNull($result);
-    }
-
-    /**
-     * Test the failure functionality of cachedFetch.
-     *
-     * @return void
-     */
-    public function testCachedFetchFail() {
-        if (function_exists('apc_store')) {
-            $calendar = $this->dummyCalendar();
-            $fetcher = function() {
-                return rand();
-            };
-            $this->assertEquals(
-                $calendar->cachedFetch($fetcher, 'key3', 5),
-                $calendar->cachedFetch($fetcher, 'key3', 5)
-            );
-        }
-    }
-
-    /**
      * Test the basic functionality of cachedURLFetch.
      *
      * @return void
