@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../lib/ErrorHandler.php';
+
 /**
  * A generic calendar type.
  *
@@ -72,6 +74,7 @@ abstract class Calendar {
                     apc_store($cache_key, $result, $ttl);
                 }
             } catch (Exception $e) {
+                ErrorHandler::handleException($e, false);
                 return null;
             }
         }
