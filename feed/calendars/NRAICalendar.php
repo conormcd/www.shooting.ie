@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/Calendar.php';
+require_once __DIR__ . '/../../lib/global.php';
 
 /**
  * A representation of the NRAI calendar as published on their website.

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../lib/global.php';
+
 /**
  * A superclass and entry point for running a feed of some data.
  *

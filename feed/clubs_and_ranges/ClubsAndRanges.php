@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__) . '/Feed.php';
+require_once __DIR__ . '/../../lib/global.php';
 
 /**
  * A wrapper for reading club/range data files.

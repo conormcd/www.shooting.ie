@@ -1,10 +1,6 @@
 <?php
 
-require_once dirname(__DIR__) . '/Feed.php';
-require_once __DIR__ . '/GoogleCalendar.php';
-require_once __DIR__ . '/ICPSACalendar.php';
-require_once __DIR__ . '/NRAICalendar.php';
-require_once __DIR__ . '/../../lib/ErrorHandler.php';
+require_once __DIR__ . '/../../lib/global.php';
 
 /**
  * A wrapper for reading and merging remote calendars.

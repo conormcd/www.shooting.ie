@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../lib/Cache.php';
+require_once __DIR__ . '/../../lib/global.php';
 
 /**
  * A generic calendar type.
