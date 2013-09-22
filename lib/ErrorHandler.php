@@ -10,7 +10,7 @@ require_once __DIR__ . '/Environment.php';
  */
 class ErrorHandler {
     /** The Sentry exception handler client. */
-    private static $sentry = null;
+    public static $sentry = null;
 
     /**
      * Load the exception handler and set the appropriate global error
