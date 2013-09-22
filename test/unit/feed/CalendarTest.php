@@ -20,18 +20,18 @@ extends PHPUnit_Framework_TestCase
 
         $test_data = array(
             array(
-                'start' => '2013-06-01',
-                'end' => '2013-06-01',
+                'start' => '2013-06-01T12:00:00Z',
+                'end' => '2013-06-01T12:00:00Z',
                 'output' => array()
             ),
             array(
-                'start' => '2013-06-01',
-                'end' => '2013-06-02',
+                'start' => '2013-06-01T12:00:00Z',
+                'end' => '2013-06-02T12:00:00Z',
                 'output' => array('2013-06-01')
             ),
             array(
-                'start' => '2012-12-30',
-                'end' => '2013-01-02',
+                'start' => '2012-12-30T12:00:00Z',
+                'end' => '2013-01-02T12:00:00Z',
                 'output' => array('2012-12-30', '2012-12-31', '2013-01-01')
             ),
         );
@@ -42,13 +42,13 @@ extends PHPUnit_Framework_TestCase
                 strtotime($test_scenario['end'])
             );
             $this->assertEquals(
+                $test_scenario['output'],
                 array_map(
                     function ($day) {
                         return strftime('%Y-%m-%d', $day);
                     },
                     $days
-                ),
-                $test_scenario['output']
+                )
             );
         }
     }
