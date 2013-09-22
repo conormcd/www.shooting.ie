@@ -71,7 +71,7 @@ extends Calendar
                     $events[] = array(
                         'timestamp' => $ts,
                         'date' => strftime('%Y-%m-%d', $ts),
-                        'title' => $title,
+                        'title' => trim($title),
                         'location' => $data[$i+1][3],
                         'priority' => $this->priority,
                         'calendar' => $this->name,
