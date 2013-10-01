@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/ErrorHandler.php';
+require_once __DIR__ . '/global.php';
 
 /**
  * A wrapper around the caching code to allow us to deal with more complex

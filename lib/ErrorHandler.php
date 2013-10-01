@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/Environment.php';
+require_once __DIR__ . '/global.php';
 
 /**
  * Handler for errors and exceptions. This is just a facade to decouple the
