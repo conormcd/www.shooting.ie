@@ -18,11 +18,44 @@ abstract class Feed {
     public static function output($data_dir) {
         $feed_class = get_called_class();
         $feed_obj = new $feed_class($data_dir);
-        if (array_key_exists('function_name', $_GET)) {
-            $func = preg_replace('/[^A-Za-z0-9_]/', '', $_GET['function_name']);
-            return $feed_obj->jsonp($func);
-        } else {
-            return $feed_obj->json();
+        $feed_format = 'json';
+        $valid_formats = array(
+            'json' => 'application/json',
+            'jsonp' => 'application/javascript',
+            'ical' => 'text/calendar',
+        );
+
+        // Use the format asked for, if it's valid.
+        if (array_key_exists('format', $_GET)) {
+            if (array_key_exists($_GET['format'], $valid_formats)) {
+                $feed_format = $_GET['format'];
+            }
+        }
+
+        // Deal with the JSONP callback
+        if (in_array($feed_format, array('json', 'jsonp'))) {
+            if (array_key_exists('function_name', $_GET)) {
+                $feed_format = 'jsonp';
+                $callback = preg_replace(
+                    '/[^A-Za-z0-9_]/',
+                    '',
+                    $_GET['function_name']
+                );
+            } else {
+                $feed_format = 'json';
+                $callback = null;
+            }
+        }
+
+        // Now dispatch based on the format
+        header("Content-Type: {$valid_formats[$feed_format]}; charset=utf-8");
+        switch ($feed_format) {
+            case 'json':
+                return $feed_obj->json();
+            case 'jsonp':
+                return $feed_obj->jsonp($callback);
+            case 'ical':
+                return $feed_obj->ical();
         }
     }
 

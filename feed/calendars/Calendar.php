@@ -56,7 +56,11 @@ abstract class Calendar {
     public function cachedURLFetch($url) {
         return Cache::exec(
             function () use ($url) {
-                return file_get_contents($url);
+                $contents = file_get_contents($url);
+                if ($contents === false) {
+                    throw new Exception("Failed to fetch $url");
+                }
+                return $contents;
             },
             'SHOOTING_IE_URL_FETCH_' . md5($url),
             86400,

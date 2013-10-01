@@ -79,6 +79,25 @@ extends Feed
     }
 
     /**
+     * Output data in iCalendar format.
+     *
+     * @return string The value of the data method, encoded in the iCalendar
+     *                format.
+     */
+    public function ical() {
+        $ical  = "BEGIN:VCALENDAR\n";
+        $ical .= "VERSION:2.0\n";
+        $ical .= "PRODID:-//www.shooting.ie//NONSGML v1.0//EN\n";
+        foreach (array_values($this->data()) as $events) {
+            foreach ($events as $event) {
+                $ical .= ICalendarFormatter::formatEvent($event);
+            }
+        }
+        $ical .= "END:VCALENDAR\n";
+        return $ical;
+    }
+
+    /**
      * Determine if two events are similar enough to be merged.
      *
      * @param array $event_a An event structure.

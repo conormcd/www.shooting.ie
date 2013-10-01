@@ -16,11 +16,41 @@ extends Calendar
      * @return array An array of the events in the NRAI calendar.
      */
     public function events() {
-        $data = $this->cachedURLFetch($this->url);
+        $data = $this->extractTable($this->cachedURLFetch($this->url));
 
+        $events = array();
+        $num_events = count($data) - 1;
+        for ($i = 0; $i < $num_events; $i++) {
+            foreach ($this->days($data[$i+1][0]) as $ts) {
+                foreach (preg_split('/[\r\n]+/', $data[$i+1][1]) as $title) {
+                    $events[] = array(
+                        'timestamp' => $ts,
+                        'date' => strftime('%Y-%m-%d', $ts),
+                        'title' => trim($title),
+                        'location' => $data[$i+1][3],
+                        'priority' => $this->priority,
+                        'calendar' => $this->name,
+                    );
+                }
+            }
+        }
+
+        return $events;
+    }
+
+    /**
+     * Given the HTML for the NRAI calendar page, pull out the calendar data as 
+     * a 2D array.
+     *
+     * @param string $html The HTML from the NRAI calendar page.
+     *
+     * @return array A 2D array corresponding to the table on the NRAI calendar 
+     *               page.
+     */
+    private function extractTable($html) {
         // Parse the table out of the source using regular expressions. What
         // could possibly go wrong here?
-        $data = preg_replace('/^.*<tbody.*?>(.*?)<\/tbody>.*$/s', '$1', $data);
+        $data = preg_replace('/^.*<tbody.*?>(.*?)<\/tbody>.*$/s', '$1', $html);
         $data = preg_replace('/(<[A-Za-z]+)(?:\s+.*?)(>)/s', '$1$2', $data);
         $data = preg_replace('/<(?!\/?t[dr]).*?>/', '', $data);
 
@@ -59,28 +89,10 @@ extends Calendar
                     break;
             }
         }
-        if (!preg_match('/\d+ Calendar/', $data[0][0])) {
+        if (!($data && preg_match('/\d+ Calendar/', $data[0][0]))) {
             throw new Exception("Failed to parse NRAI calendar.");
         }
-
-        $events = array();
-        $num_events = count($data) - 1;
-        for ($i = 0; $i < $num_events; $i++) {
-            foreach ($this->days($data[$i+1][0]) as $ts) {
-                foreach (preg_split('/[\r\n]+/', $data[$i+1][1]) as $title) {
-                    $events[] = array(
-                        'timestamp' => $ts,
-                        'date' => strftime('%Y-%m-%d', $ts),
-                        'title' => trim($title),
-                        'location' => $data[$i+1][3],
-                        'priority' => $this->priority,
-                        'calendar' => $this->name,
-                    );
-                }
-            }
-        }
-
-        return $events;
+        return $data;
     }
 
     /**
