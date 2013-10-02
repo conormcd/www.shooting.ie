@@ -1,13 +1,15 @@
 {
-   "longitude" : -6.8353,
-   "latitude" : 54.07205,
-   "url" : "http://www.mourneadventureactivities.com/",
-   "address" : {
-      "extended-address" : [
-         "Loughmourne",
-         "Castleblayney"
-      ],
-      "street-address" : "Mourne View",
-      "locality" : "Co Monaghan"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.8353, 54.07205]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Mourne View",
+      "extended-address": ["Loughmourne","Castleblayney"],
+      "locality": "Co Monaghan"
+    },
+    "url": "http://www.mourneadventureactivities.com/"
+  }
 }

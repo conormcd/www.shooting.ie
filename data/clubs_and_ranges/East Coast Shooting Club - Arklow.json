@@ -1,5 +1,10 @@
 {
-   "longitude" : -6.285282,
-   "latitude" : 52.849557,
-   "url" : "http://www.ecssc.ie/"
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.285282, 52.849557]
+  },
+  "properties": {
+    "url": "http://www.ecssc.ie/"
+  }
 }

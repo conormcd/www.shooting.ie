@@ -45,8 +45,35 @@ extends PHPUnit_Framework_TestCase
                 $this->assertTrue(is_readable($path));
                 $json = json_decode(file_get_contents($path));
                 if ($json === null) {
-                    $this->assertEqual(json_last_error(), JSON_ERROR_NONE);
+                    $this->assertEquals(
+                        json_last_error(),
+                        JSON_ERROR_NONE,
+                        "$path is not valid JSON"
+                    );
                 }
+            }
+        }
+    }
+
+    /**
+     * Check that the JSON files are valid GeoJSON that refer to a single point.
+     *
+     * @return void
+     */
+    public function testValidGeoJSON() {
+        foreach ($this->dataDirFiles() as $path) {
+            if (preg_match('/\.json$/', $path)) {
+                $json = json_decode(file_get_contents($path), true);
+                $this->assertTrue(is_array($json));
+                foreach (array('type', 'geometry', 'properties') as $key) {
+                    $this->assertArrayHasKey($key, $json);
+                }
+                $this->assertEquals('Feature', $json['type']);
+                $this->assertTrue(is_array($json['geometry']));
+                $this->assertArrayHasKey('type', $json['geometry']);
+                $this->assertEquals('Point', $json['geometry']['type']);
+                $this->assertTrue(is_array($json['geometry']['coordinates']));
+                $this->assertEquals(2, count($json['geometry']['coordinates']));
             }
         }
     }

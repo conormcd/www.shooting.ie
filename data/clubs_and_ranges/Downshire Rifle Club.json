@@ -1,11 +1,16 @@
 {
-   "longitude" : -6.094885,
-   "latitude" : 54.464273,
-   "url" : "http://www.downshirerifleclub.com/",
-   "address" : {
-      "postal-code" : "BT26 6DU",
-      "extended-address" : "Hillsborough",
-      "street-address" : "35 Moira Road",
-      "locality" : "Co. Down"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.094885, 54.464273]
+  },
+  "properties": {
+    "address": {
+      "street-address": "35 Moira Road",
+      "extended-address": "Hillsborough",
+      "locality": "Co. Down",
+      "postal-code": "BT26 6DU"
+    },
+    "url": "http://www.downshirerifleclub.com/"
+  }
 }

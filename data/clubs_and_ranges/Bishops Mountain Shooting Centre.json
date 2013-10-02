@@ -1,9 +1,14 @@
 {
-   "longitude" : -7.107649,
-   "latitude" : 52.368147,
-   "address" : {
-      "extended-address" : "Near Mullinavat",
-      "street-address" : "Knockbrack Gorse",
-      "locality" : "Kilkenny"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-7.107649, 52.368147]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Knockbrack Gorse",
+      "extended-address": "Near Mullinavat",
+      "locality": "Kilkenny"
+    }
+  }
 }

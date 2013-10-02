@@ -1,10 +1,15 @@
 {
-   "longitude" : -5.72183888888889,
-   "latitude" : 54.5323611111111,
-   "url" : "http://www.comberrifleclub.com/",
-   "address" : {
-      "postal-code" : "BT23 5SU",
-      "street-address" : "Ballygraffan Road",
-      "locality" : "Comber"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-5.72183888888889, 54.5323611111111]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Ballygraffan Road",
+      "locality": "Comber",
+      "postal-code": "BT23 5SU"
+    },
+    "url": "http://www.comberrifleclub.com/"
+  }
 }

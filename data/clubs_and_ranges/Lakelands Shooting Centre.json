@@ -1,10 +1,15 @@
 {
-   "longitude" : -7.374444,
-   "latitude" : 53.441906,
-   "url" : "http://www.lakelandshootingcentre.ie/",
-   "address" : {
-      "extended-address" : "Mullingar",
-      "street-address" : "Dalystown",
-      "locality" : "Co. Westmeath"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-7.374444, 53.441906]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Dalystown",
+      "extended-address": "Mullingar",
+      "locality": "Co. Westmeath"
+    },
+    "url": "http://www.lakelandshootingcentre.ie/"
+  }
 }

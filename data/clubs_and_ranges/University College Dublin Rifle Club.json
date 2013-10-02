@@ -1,15 +1,16 @@
 {
-   "longitude" : -6.23236414228111,
-   "latitude" : 53.3087665160908,
-   "url" : "http://www.ucd.ie/rifle/",
-   "address" : {
-      "postal-code" : "4",
-      "extended-address" : [
-         "Students Consultative Forum",
-         "University College Dublin",
-         "Belfield"
-      ],
-      "street-address" : "PO Box 66",
-      "locality" : "Dublin"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.23236414228111, 53.3087665160908]
+  },
+  "properties": {
+    "address": {
+      "street-address": "PO Box 66",
+      "extended-address": ["Students Consultative Forum","University College Dublin","Belfield"],
+      "locality": "Dublin",
+      "postal-code": "4"
+    },
+    "url": "http://www.ucd.ie/rifle/"
+  }
 }

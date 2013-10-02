@@ -1,5 +1,10 @@
 {
-   "longitude" : -6.50838,
-   "latitude" : 53.20604,
-   "url" : "http://www.hempstowncpc.com/"
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.50838, 53.20604]
+  },
+  "properties": {
+    "url": "http://www.hempstowncpc.com/"
+  }
 }

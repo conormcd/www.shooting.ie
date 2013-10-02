@@ -1,10 +1,15 @@
 {
-   "longitude" : -9.385,
-   "latitude" : 52.321389,
-   "url" : "https://irishshootingsports.ie/grounds/",
-   "address" : {
-      "extended-address" : "Knocknagoshel",
-      "street-address" : "Meenbanivane",
-      "locality" : "Co. Kerry"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-9.385, 52.321389]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Meenbanivane",
+      "extended-address": "Knocknagoshel",
+      "locality": "Co. Kerry"
+    },
+    "url": "https://irishshootingsports.ie/grounds/"
+  }
 }

@@ -1,5 +1,10 @@
 {
-   "longitude" : -6.42710799586665,
-   "latitude" : 53.2016888738685,
-   "url" : "http://www.dublinrifleclub.com/"
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.42710799586665, 53.2016888738685]
+  },
+  "properties": {
+    "url": "http://www.dublinrifleclub.com/"
+  }
 }

@@ -1,9 +1,14 @@
 {
-   "longitude" : -9.686714,
-   "latitude" : 52.199655,
-   "address" : {
-      "extended-address" : "Castlemaine",
-      "street-address" : "Ballyreameen",
-      "locality" : "Co. Kerry"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-9.686714, 52.199655]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Ballyreameen",
+      "extended-address": "Castlemaine",
+      "locality": "Co. Kerry"
+    }
+  }
 }

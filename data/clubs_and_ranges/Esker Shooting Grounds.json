@@ -1,5 +1,10 @@
 {
-   "longitude" : -7.997083,
-   "latitude" : 53.205361,
-   "url" : "http://www.esker.ie/"
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-7.997083, 53.205361]
+  },
+  "properties": {
+    "url": "http://www.esker.ie/"
+  }
 }
