@@ -1,10 +1,15 @@
 {
-   "longitude" : -6.16451559046442,
-   "latitude" : 53.0930516167773,
-   "url" : "http://www.hilltopshootingsports.com/",
-   "address" : {
-      "extended-address" : "Newtownmountkennedy",
-      "street-address" : "Tithewer",
-      "locality" : "Co. Wicklow"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.16451559046442, 53.0930516167773]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Tithewer",
+      "extended-address": "Newtownmountkennedy",
+      "locality": "Co. Wicklow"
+    },
+    "url": "http://www.hilltopshootingsports.com/"
+  }
 }

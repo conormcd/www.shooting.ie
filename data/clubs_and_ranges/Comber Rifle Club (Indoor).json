@@ -1,11 +1,16 @@
 {
-   "longitude" : -5.75465551064741,
-   "latitude" : 54.5503762286759,
-   "url" : "http://www.comberrifleclub.com/",
-   "address" : {
-      "postal-code" : "BT23 5HG",
-      "extended-address" : "Comber",
-      "street-address" : "17 Railway Street",
-      "locality" : "Co. Down"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-5.75465551064741, 54.5503762286759]
+  },
+  "properties": {
+    "address": {
+      "street-address": "17 Railway Street",
+      "extended-address": "Comber",
+      "locality": "Co. Down",
+      "postal-code": "BT23 5HG"
+    },
+    "url": "http://www.comberrifleclub.com/"
+  }
 }

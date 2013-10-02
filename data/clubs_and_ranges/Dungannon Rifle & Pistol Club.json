@@ -1,5 +1,10 @@
 {
-   "longitude" : -6.767642,
-   "latitude" : 54.547239,
-   "url" : "http://www.dungannon.org.uk/"
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.767642, 54.547239]
+  },
+  "properties": {
+    "url": "http://www.dungannon.org.uk/"
+  }
 }

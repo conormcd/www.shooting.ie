@@ -1,10 +1,15 @@
 {
-   "longitude" : -8.43548144534083,
-   "latitude" : 52.1388629651757,
-   "url" : "http://www.fermoyrifleclub.com/",
-   "address" : {
-      "extended-address" : "Ballyhooly",
-      "street-address" : "Ballydague",
-      "locality" : "Co. Cork"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-8.43548144534083, 52.1388629651757]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Ballydague",
+      "extended-address": "Ballyhooly",
+      "locality": "Co. Cork"
+    },
+    "url": "http://www.fermoyrifleclub.com/"
+  }
 }

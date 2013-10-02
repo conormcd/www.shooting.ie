@@ -1,23 +1,24 @@
 function infoAddress(club) {
-    if (club['address']) {
+    if (club['properties']['address']) {
+        addr = club['properties']['address'];
         address = [];
-        if (club['address']['street-address']) {
-            address.push(club['address']['street-address']);
+        if (addr['street-address']) {
+            address.push(addr['street-address']);
         }
-        if (club['address']['extended-address']) {
-            if (typeof club['address']['extended-address'] === 'object') {
-                for (i in club['address']['extended-address']) {
-                    address.push(club['address']['extended-address'][i]);
+        if (addr['extended-address']) {
+            if (typeof addr['extended-address'] === 'object') {
+                for (i in addr['extended-address']) {
+                    address.push(addr['extended-address'][i]);
                 }
             } else {
-                address.push(club['address']['extended-address']);
+                address.push(addr['extended-address']);
             }
         }
-        if (club['address']['locality']) {
-            if (club['address']['postal-code']) {
-                address.push(club['address']['locality'] + " " + club['address']['postal-code']);
+        if (addr['locality']) {
+            if (addr['postal-code']) {
+                address.push(addr['locality'] + " " + addr['postal-code']);
             } else {
-                address.push(club['address']['locality']);
+                address.push(addr['locality']);
             }
         }
         return "<br />" + address.join(",<br />") + "<br />";
@@ -27,25 +28,25 @@ function infoAddress(club) {
 }
 
 function infoWindow(club_name, club) {
-    if (club['url']) {
-        info = "<a href=\"" + club['url'] + "\">" + club_name + "</a><br />";
+    if (club['properties']['url']) {
+        info = "<a href=\"" + club['properties']['url'] + "\">" + club_name + "</a><br />";
     } else {
         info = club_name + "<br />";
     }
     info += infoAddress(club);
-    info += "<br />GPS: " + club['latitude'].toFixed(4) + ", " + club['longitude'].toFixed(4);
+    info += "<br />GPS: " + club['geometry']['coordinates'][1].toFixed(4) + ", " + club['geometry']['coordinates'][0].toFixed(4);
     info += "<br /><a target=\"_blank\" ";
     info += "href=\"http://maps.google.com/maps?saddr=&daddr=" +
-            club['latitude'] + "," +
-            club['longitude'] + "\">Directions...</a>";
+            club['geometry']['coordinates'][1] + "," +
+            club['geometry']['coordinates'][0] + "\">Directions...</a>";
     return info
 }
 
 function drawClubsAndRanges(map, clubs) {
     for (club_name in clubs) {
         clubs[club_name]['point'] = new google.maps.LatLng(
-            clubs[club_name]['latitude'],
-            clubs[club_name]['longitude']
+            clubs[club_name]['geometry']['coordinates'][1],
+            clubs[club_name]['geometry']['coordinates'][0]
         );
         clubs[club_name]['marker'] = new google.maps.Marker({
             position: clubs[club_name]['point'],

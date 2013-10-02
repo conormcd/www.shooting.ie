@@ -1,11 +1,16 @@
 {
-   "longitude" : -6.014835,
-   "latitude" : 54.781975,
-   "url" : "http://www.earpc.co.uk/",
-   "address" : {
-      "postal-code" : "BT39 9TA",
-      "extended-address" : "Ballyclare",
-      "street-address" : "23A Sawmill Road",
-      "locality" : "Co. Antrim"
-   }
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.014835, 54.781975]
+  },
+  "properties": {
+    "address": {
+      "street-address": "23A Sawmill Road",
+      "extended-address": "Ballyclare",
+      "locality": "Co. Antrim",
+      "postal-code": "BT39 9TA"
+    },
+    "url": "http://www.earpc.co.uk/"
+  }
 }

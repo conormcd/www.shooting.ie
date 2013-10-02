@@ -1,4 +1,9 @@
 {
-   "longitude" : -6.2112219360812,
-   "latitude" : 53.6241393982032
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.2112219360812, 53.6241393982032]
+  },
+  "properties": {
+  }
 }
