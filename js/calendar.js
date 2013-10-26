@@ -4,7 +4,7 @@ function loadCalendar() {
     });
 }
 
-function formatDate(epochTime) {
+function formatDate(date) {
     days = [
         'Sunday',
         'Monday',
@@ -28,8 +28,7 @@ function formatDate(epochTime) {
         'November',
         'December'
     ];
-    date = new Date();
-    date.setTime(epochTime * 1000);
+    date = new Date(date);
     return  days[date.getDay()] + ' ' +
             date.getDate() + ' ' +
             months[date.getMonth()] + ' ' +
