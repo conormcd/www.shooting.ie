@@ -13,6 +13,9 @@ extends Feed
     /** A regular expression matching unwanted bits in an event title. */
     const CRUFT = '/\W*(?:postponed|cancell?ed|confirmed|provisional)\W*$/i';
 
+    /** A cache for strtotime. */
+    private $strtotime_cache;
+
     /**
      * Initialise with a directory which will contain a .json file for each
      * calendar.
@@ -22,6 +25,7 @@ extends Feed
     public function __construct($data_dir) {
         parent::__construct($data_dir);
         $this->data = null;
+        $this->strtotime_cache = array();
     }
 
     /**
@@ -55,7 +59,7 @@ extends Feed
                 // Patch the data into the overall list of things we have.
                 try {
                     foreach ($cal->events() as $event) {
-                        $this->data[$event['timestamp']][] = $event;
+                        $this->data[$event['date']][] = $event;
                     }
                 } catch (Exception $e) {
                     // Ignore (but log) exceptions from that calendar.
@@ -163,9 +167,10 @@ extends Feed
      */
     public function removeOutOfRangeEvents($data, $start, $end) {
         $new_data = array();
-        foreach ($data as $timestamp => $events) {
+        foreach ($data as $date => $events) {
+            $timestamp = $this->strtotime($date);
             if ($timestamp >= $start && $timestamp < $end) {
-                $new_data[$timestamp] = $events;
+                $new_data[$date] = $events;
             }
         }
         return $new_data;
@@ -180,7 +185,7 @@ extends Feed
      */
     public function removeDuplicateEvents($data) {
         $new_data = array();
-        foreach ($data as $timestamp => $events) {
+        foreach ($data as $date => $events) {
             $num_events = count($events);
 
             // Detect the similarity
@@ -208,7 +213,7 @@ extends Feed
             // Now filter the events
             for ($i = 0; $i < $num_events; $i++) {
                 if (!in_array($i, $removed_events)) {
-                    $new_data[$timestamp][] = $events[$i];
+                    $new_data[$date][] = $events[$i];
                 }
             }
         }
@@ -224,10 +229,10 @@ extends Feed
      */
     private function removeCancelledEvents($data) {
         $new_data = array();
-        foreach ($data as $timestamp => $events) {
+        foreach ($data as $date => $events) {
             foreach ($events as $event) {
                 if (!preg_match('/\W*cancelled\W*$/i', $event['title'])) {
-                    $new_data[$timestamp][] = $event;
+                    $new_data[$date][] = $event;
                 }
             }
         }
@@ -243,17 +248,17 @@ extends Feed
      * @return array A copy of $this->data with the event titles cleaned.
      */
     public function cleanEventTitles($data) {
-        foreach ($data as $timestamp => $events) {
+        foreach ($data as $date => $events) {
             $num_events = count($events);
             for ($i = 0; $i < $num_events; $i++) {
-                $ev = $data[$timestamp][$i];
+                $ev = $data[$date][$i];
                 $ev['title_clean'] = preg_replace(self::CRUFT, '', $ev['title']);
                 $ev['title_clean'] = preg_replace(
                     '/\s*\*\s*/',
                     '',
                     $ev['title_clean']
                 );
-                $data[$timestamp][$i] = $ev;
+                $data[$date][$i] = $ev;
             }
         }
         return $data;
@@ -267,19 +272,33 @@ extends Feed
      * @return array A copy of $this->data with the event titles cleaned.
      */
     public function guessLocations($data) {
-        foreach ($data as $timestamp => $events) {
+        foreach ($data as $date => $events) {
             $num_events = count($events);
             for ($i = 0; $i < $num_events; $i++) {
-                $ev = $data[$timestamp][$i];
+                $ev = $data[$date][$i];
                 if (!$ev['location']) {
                     if (preg_match('/ @ (.*)$/', $ev['title'], $m)) {
                         $ev['location'] = $m[1];
                     }
                 }
-                $data[$timestamp][$i] = $ev;
+                $data[$date][$i] = $ev;
             }
         }
         return $data;
+    }
+
+    /**
+     * A caching proxy for strtotime.
+     *
+     * @param string $str The string to pass to strtotime.
+     *
+     * @return The result of calling strtotime on $str. 
+     */
+    private function strtotime($str) {
+        if (!array_key_exists($str, $this->strtotime_cache)) {
+            $this->strtotime_cache[$str] = strtotime($str);
+        }
+        return $this->strtotime_cache[$str];
     }
 }
 
