@@ -11,8 +11,8 @@ class ClubsAndRanges
 extends Feed
 {
     /**
-     * Initialise with a directory which will contain .json files for each club 
-     * or range.
+     * Initialise with a directory which will contain .geojson files for each 
+     * club or range.
      *
      * @param string $data_dir The path to the directory.
      */
@@ -29,8 +29,8 @@ extends Feed
      */
     public function data() {
         if ($this->data === null) {
-            foreach ($this->dataFiles() as $file_path) {
-                $club_name = preg_replace('/\.json$/', '', basename($file_path));
+            foreach ($this->dataFiles('geojson') as $file_path) {
+                $club_name = preg_replace('/\.geojson$/', '', basename($file_path));
                 $contents = json_decode(file_get_contents($file_path), true);
                 $this->data[$club_name] = $contents;
             }

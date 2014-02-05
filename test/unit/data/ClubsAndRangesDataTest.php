@@ -25,8 +25,8 @@ extends PHPUnit_Framework_TestCase
      */
     public function testJSONFilesExist() {
         $json_count = 0;
-        foreach ($this->dataDirFiles() as $path) {
-            if (preg_match('/\.json$/', $path)) {
+        foreach ($this->dataDirFiles('geojson') as $path) {
+            if (preg_match('/\.geojson$/', $path)) {
                 $json_count++;
             }
         }
@@ -39,8 +39,8 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testValidJSON() {
-        foreach ($this->dataDirFiles() as $path) {
-            if (preg_match('/\.json$/', $path)) {
+        foreach ($this->dataDirFiles('geojson') as $path) {
+            if (preg_match('/\.geojson$/', $path)) {
                 $this->assertTrue(file_exists($path));
                 $this->assertTrue(is_readable($path));
                 $json = json_decode(file_get_contents($path));
@@ -61,8 +61,8 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testValidGeoJSON() {
-        foreach ($this->dataDirFiles() as $path) {
-            if (preg_match('/\.json$/', $path)) {
+        foreach ($this->dataDirFiles('geojson') as $path) {
+            if (preg_match('/\.geojson$/', $path)) {
                 $json = json_decode(file_get_contents($path), true);
                 $this->assertTrue(is_array($json));
                 foreach (array('type', 'geometry', 'properties') as $key) {
