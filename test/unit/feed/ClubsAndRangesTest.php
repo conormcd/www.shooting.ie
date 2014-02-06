@@ -45,7 +45,7 @@ extends PHPUnit_Framework_TestCase
     public function testDataFilesReturnsFiles() {
         $clubs = new ClubsAndRanges($this->dataDir());
         $file_count = 0;
-        foreach ($clubs->dataFiles() as $path) {
+        foreach ($clubs->dataFiles('geojson') as $path) {
             $this->assertTrue(file_exists($path));
             $this->assertTrue(is_file($path));
             $this->assertTrue(is_readable($path));

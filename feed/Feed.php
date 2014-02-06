@@ -79,13 +79,15 @@ abstract class Feed {
     /**
      * Get the files which should be read.
      *
+     * @param string $extension The file extension the files should have.
+     *
      * @return array The full paths to the data files.
      */
-    public function dataFiles() {
+    public function dataFiles($extension = 'json') {
         $files = array();
         if ($dir = opendir($this->data_dir)) {
             while (($entry = readdir($dir)) !== false) {
-                if (preg_match('/\.json$/', $entry)) {
+                if (preg_match("/\.$extension$/", $entry)) {
                     $files[] = realpath($this->data_dir . '/' . $entry);
                 }
             }
