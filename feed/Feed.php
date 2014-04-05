@@ -20,9 +20,12 @@ abstract class Feed {
         $feed_obj = new $feed_class($data_dir);
         $feed_format = 'json';
         $valid_formats = array(
+            'geojson' => 'application/json',
+            'gpx' => 'application/gpx+xml',
+            'ical' => 'text/calendar',
             'json' => 'application/json',
             'jsonp' => 'application/javascript',
-            'ical' => 'text/calendar',
+            'kml' => 'application/vnd.google-earth.kml+xml',
         );
 
         // Use the format asked for, if it's valid.
@@ -50,12 +53,10 @@ abstract class Feed {
         // Now dispatch based on the format
         header("Content-Type: {$valid_formats[$feed_format]}; charset=utf-8");
         switch ($feed_format) {
-            case 'json':
-                return $feed_obj->json();
             case 'jsonp':
                 return $feed_obj->jsonp($callback);
-            case 'ical':
-                return $feed_obj->ical();
+            default:
+                return call_user_func(array($feed_obj, $feed_format));
         }
     }
 
