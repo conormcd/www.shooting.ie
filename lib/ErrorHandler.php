@@ -20,8 +20,6 @@ class ErrorHandler {
      */
     public static function init() {
         if (array_key_exists('SENTRY_DSN', $_ENV)) {
-            include_once __DIR__ . '/raven-php/lib/Raven/Autoloader.php';
-            Raven_Autoloader::register();
             self::$sentry = new Raven_Client($_ENV['SENTRY_DSN']);
             $error_handler = new Raven_ErrorHandler(self::$sentry);
             set_error_handler(array($error_handler, 'handleError'));

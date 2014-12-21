@@ -36,6 +36,7 @@ function searchdir($root, $filename) {
  * source tree isn't so big that this actually matters.
  */
 define('ROOT', realpath(dirname(__DIR__)));
+require ROOT . '/vendor/autoload.php';
 spl_autoload_register(
     function($class) {
         $file = searchdir(ROOT, "$class.php");
