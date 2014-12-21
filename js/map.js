@@ -34,6 +34,10 @@ function infoWindow(club_name, club) {
         info = club_name + "<br />";
     }
     info += infoAddress(club);
+    if (club['properties']['phone']) {
+        info += "<br />Phone: <a href=\"tel:" +  club['properties']['phone'] +
+            "\">" + club['properties']['phone'] + "</a>"
+    }
     info += "<br />GPS: " + club['geometry']['coordinates'][1].toFixed(4) + ", " + club['geometry']['coordinates'][0].toFixed(4);
     info += "<br /><a target=\"_blank\" ";
     info += "href=\"http://maps.google.com/maps?saddr=&daddr=" +
