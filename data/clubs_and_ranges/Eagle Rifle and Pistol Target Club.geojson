@@ -5,6 +5,10 @@
     "coordinates": [-6.455357, 53.264621]
   },
   "properties": {
+    "address": {
+      "street-address": "Bohernabreena",
+      "locality": "Co. Dublin"
+    },
     "url": "http://www.eaglerifleandpistolclub.com/"
   }
 }

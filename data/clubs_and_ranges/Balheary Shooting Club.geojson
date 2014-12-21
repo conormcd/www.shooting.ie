@@ -1,0 +1,16 @@
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.274154, 53.489991]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Balheary",
+      "extended-address": "Swords",
+      "locality": "Co. Dublin"
+    },
+    "url": "http://www.balhearyshooting.com",
+    "phone": "+353-1-807-8814"
+  }
+}

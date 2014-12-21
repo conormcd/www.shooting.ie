@@ -5,5 +5,11 @@
     "coordinates": [-6.3638, 53.2618]
   },
   "properties": {
+    "address": {
+      "street-address": "Bohernabreena",
+      "locality": "Co. Dublin"
+    },
+    "url": "http://www.brcshootingclub.com",
+    "phone": "+353-85-199-4108"
   }
 }
