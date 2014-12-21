@@ -10,13 +10,14 @@ require_once __DIR__ . '/../../../feed/calendars/Calendars.php';
 class CalendarsTest
 extends PHPUnit_Framework_TestCase
 {
+    private static $test_time = 1370041200; // 1 June 2013
     /**
      * Check that the data method returns some data in roughly the right form.
      *
      * @return void
      */
     public function testDataReturnsSomething() {
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $data = $calendars->data();
         $this->assertNotEmpty($data);
         foreach ($data as $timestamp => $events) {
@@ -31,7 +32,7 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testDataDoesntChange() {
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $this->assertEquals($calendars->data(), $calendars->data());
     }
 
@@ -42,7 +43,7 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testDataFailsOnUnknownTypeOfCalendar() {
-        $calendars = new Calendars($this->dataDir('unknown_type'));
+        $calendars = new Calendars($this->dataDir('unknown_type'), self::$test_time);
         try {
             $calendars->data();
         } catch (Exception $e) {
@@ -58,7 +59,7 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testDataFilesReturnsFiles() {
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $file_count = 0;
         foreach ($calendars->dataFiles() as $path) {
             $this->assertTrue(file_exists($path));
@@ -75,7 +76,7 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testJsonReturnsJSON() {
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $this->assertNotNull(json_decode($calendars->json()));
     }
 
@@ -85,7 +86,7 @@ extends PHPUnit_Framework_TestCase
      * @return void
      */
     public function testJsonPReturnsWrappedJSON() {
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $this->assertEquals(
             $calendars->jsonp('foo'),
             'foo(' . $calendars->json() . ')'
@@ -134,7 +135,7 @@ extends PHPUnit_Framework_TestCase
             ),
         );
         
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         foreach ($event_pairs as $pair) {
             $this->assertTrue($calendars->eventsSimilar($pair[0], $pair[1]));
         }
@@ -162,7 +163,7 @@ extends PHPUnit_Framework_TestCase
             ),
         );
         
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         foreach ($event_pairs as $pair) {
             $this->assertFalse($calendars->eventsSimilar($pair[0], $pair[1]));
         }
@@ -181,7 +182,7 @@ extends PHPUnit_Framework_TestCase
             '0..3' => array(array(0, 1), array(0, 2), array(1, 2)),
         );
 
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         foreach ($ranges as $range => $result) {
             $range = explode('..', $range);
             $this->assertEquals(
@@ -322,7 +323,7 @@ extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $calendars = new Calendars($this->dataDir());
+        $calendars = new Calendars($this->dataDir(), self::$test_time);
         $this->assertEquals($calendars->removeDuplicateEvents($input), $output);
     }
 
