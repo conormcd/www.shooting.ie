@@ -2,5 +2,5 @@
   "name": "Non NASRPC Events",
   "type": "Google",
   "priority": 1,
-  "url": "http://www.google.com/calendar/feeds/82i5jbb3qaatfdd6v1c83tj25o%40group.calendar.google.com/public/full?alt=jsonc"
+  "url": "https://www.google.com/calendar/feeds/82i5jbb3qaatfdd6v1c83tj25o%40group.calendar.google.com/public/basic?alt=jsonc"
 }

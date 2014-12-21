@@ -2,5 +2,5 @@
   "name": "ECSC",
   "type": "Google",
   "priority": 2,
-  "url": "http://www.google.com/calendar/feeds/e4596v8rlh3hgplgj2tk76bfkk@group.calendar.google.com/public/full?alt=jsonc"
+  "url": "https://www.google.com/calendar/feeds/e4596v8rlh3hgplgj2tk76bfkk@group.calendar.google.com/public/basic?alt=jsonc"
 }
