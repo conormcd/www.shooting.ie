@@ -9,6 +9,9 @@ require_once __DIR__ . '/global.php';
  * @author Conor McDermottroe <conor@mcdermottroe.com>
  */
 class Cache {
+    /** The connection to Memcached */
+    private static $memcached = null;
+
     /**
      * Run some function proxied via the cache.
      *
@@ -18,67 +21,42 @@ class Cache {
      *                            stored.
      * @param int      $ttl       The number of seconds from now when the item 
      *                            should be removed from the cache.
-     * @param int      $ttl_stale The number of 
      *
      * @return mixed              Either the result of the function or null if 
      *                            there's no cached value AND the function 
      *                            fails.
      */
-    public static function exec($func, $key, $ttl, $ttl_stale = null) {
-        $now = time();
-        $ttl_stale = $ttl_stale !== null ? $ttl_stale : $ttl;
-        $result = array(
-            'status' => 'init',
-            'value' => null
-        );
+    public static function exec($func, $key, $ttl) {
+        // Add some randomness to the TTL, to avoid cache stampedes.
+        $ttl_rand_bound = (int)($ttl * 0.05);
+        $ttl += mt_rand($ttl_rand_bound * -1, $ttl_rand_bound);
 
-        // Attempt to fetch the value from the cache.
-        if (function_exists('apc_fetch')) {
-            $result = apc_fetch($key, $success);
-            if ($success) {
-                if ($now < $result['best_before']) {
-                    $result = array(
-                        'status' => 'valid',
-                        'value' => $result['value']
-                    );
-                } else {
-                    $result = array(
-                        'status' => 'stale',
-                        'value' => $result['value']
-                    );
-                }
-            } else {
-                $result = array(
-                    'status' => 'not_in_cache',
-                    'value' => null
-                );
-            }
+        // The Memcached extension considers anyting over 60*60*24*30 to be a
+        // UNIX timestamp, so we have to adjust for that here.
+        if ($ttl >= (60*60*24*30)) {
+            $ttl = $ttl + time();
         }
 
-        // Call the fetcher if needed
-        if ($result['status'] !== 'valid') {
-            try {
-                $value = call_user_func($func);
-                if (function_exists('apc_store')) {
-                    apc_store(
-                        $key,
-                        array(
-                            'best_before' => $now + $ttl_stale,
-                            'value' => $value
-                        ),
-                        $ttl
-                    );
-                }
-                $result = array(
-                    'status' => 'fresh',
-                    'value' => $value
-                );
-            } catch (Exception $e) {
-                ErrorHandler::handleException($e, false);
-            }
+        // Connect to memcached if necessary
+        if (self::$memcached === null) {
+            self::$memcached = new Memcached('www.shooting.ie');
+            self::$memcached->addServer('127.0.0.1', 11211);
         }
 
-        return $result['value'];
+        // Attempt to fetch from the cache
+        $result = self::$memcached->get($key);
+        if (self::$memcached->getResultCode() === Memcached::RES_SUCCESS) {
+            return $result;
+        }
+
+        // Read through and store the value
+        $result = call_user_func($func);
+        self::$memcached->set($key, $result, $ttl);
+        if (self::$memcached->getResultCode() !== Memcached::RES_SUCCESS) {
+            throw new Exception("Failed to set a value in the cache for $key");
+        }
+
+        return $result;
     }
 }
 

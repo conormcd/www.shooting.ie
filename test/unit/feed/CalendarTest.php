@@ -67,16 +67,6 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test the failure functionality of cachedURLFetch.
-     *
-     * @return void
-     */
-    public function testCachedURLFetchFail() {
-        $calendar = $this->dummyCalendar();
-        $this->assertNull($calendar->cachedURLFetch('/' . md5(rand())));
-    }
-
-    /**
      * Test cachedJSONFetch().
      *
      * @return void
@@ -89,19 +79,6 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $calendar->cachedJSONFetch($json_file),
             json_decode(file_get_contents($json_file), true)
-        );
-    }
-
-    /**
-     * Test a failure scenario in cachedJSONFetch().
-     *
-     * @return void
-     */
-    public function testCachedJSONFetchFail() {
-        $calendar = $this->dummyCalendar();
-        $this->assertEquals(
-            null,
-            $calendar->cachedJSONFetch(__FILE__)
         );
     }
 
