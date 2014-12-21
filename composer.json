@@ -1,0 +1,16 @@
+{
+  "name": "conormcd/www.shooting.ie",
+  "description": "http://www.shooting.ie/",
+  "authors": [
+    {
+      "name": "Conor McDermottroe",
+      "email": "conor@mcdermottroe.com"
+    }
+  ],
+  "require": {
+    "raven/raven": "0.10.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.1.*"
+  }
+}

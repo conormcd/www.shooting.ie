@@ -21,10 +21,12 @@ extends Feed
      * calendar.
      *
      * @param string $data_dir The path to the directory.
+     * @param int    $time     The time of the request.
      */
-    public function __construct($data_dir) {
+    public function __construct($data_dir, $time) {
         parent::__construct($data_dir);
         $this->data = null;
+        $this->time = ($time === null) ? time() : $time;
         $this->strtotime_cache = array();
     }
 
@@ -69,8 +71,8 @@ extends Feed
 
             $this->data = $this->removeOutOfRangeEvents(
                 $this->data,
-                time() - 86400,
-                time() + (86400 * 365)
+                $this->time - 86400,
+                $this->time + (86400 * 365)
             );
             $this->data = $this->removeDuplicateEvents($this->data);
             $this->data = $this->removeCancelledEvents($this->data);
