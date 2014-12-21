@@ -63,8 +63,7 @@ abstract class Calendar {
                 return $contents;
             },
             'SHOOTING_IE_URL_FETCH_' . md5($url),
-            86400,
-            3600
+            86400
         );
     }
 
@@ -86,8 +85,7 @@ abstract class Calendar {
                 return $contents;
             },
             'SHOOTING_IE_JSON_FETCH_' . md5($url),
-            86400,
-            3600
+            86400
         );
     }
 }
