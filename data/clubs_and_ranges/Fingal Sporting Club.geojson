@@ -1,0 +1,14 @@
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-6.2576032, 53.5618119]
+  },
+  "properties": {
+    "address": {
+      "street-address": "Hollywood Great",
+      "extended-address": "Naul",
+      "locality": "Co. Dublin"
+    }
+  }
+}
