@@ -4,27 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4c34f07f8a8ef615fd93def93a04ff3",
+    "content-hash": "aed33c6fd67f070c63346cd6a6e98c77",
     "packages": [
         {
             "name": "raven/raven",
-            "version": "0.10.0",
+            "version": "0.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/raven-php.git",
-                "reference": "8534b131f296597c163cbc408ac2d914f43a1a2c"
+                "reference": "d544c531a34a1b0f69271a11a887b775be12b3d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/8534b131f296597c163cbc408ac2d914f43a1a2c",
-                "reference": "8534b131f296597c163cbc408ac2d914f43a1a2c",
+                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/d544c531a34a1b0f69271a11a887b775be12b3d2",
+                "reference": "d544c531a34a1b0f69271a11a887b775be12b3d2",
                 "shasum": ""
             },
             "require": {
+                "ext-curl": "*",
                 "php": ">=5.2.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "fabpot/php-cs-fixer": "^1.8.0",
+                "phpunit/phpunit": "^4.6.6"
             },
             "bin": [
                 "bin/raven"
@@ -32,7 +34,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.8.x-dev"
+                    "dev-master": "0.14.x-dev"
                 }
             },
             "autoload": {
@@ -42,7 +44,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -57,7 +59,7 @@
                 "logging"
             ],
             "abandoned": "sentry/sentry",
-            "time": "2014-09-03T04:10:36+00:00"
+            "time": "2016-04-29T11:50:04+00:00"
         }
     ],
     "packages-dev": [
